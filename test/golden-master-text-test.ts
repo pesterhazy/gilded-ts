@@ -13,19 +13,24 @@ const items = [
   new Item("Conjured Mana Cake", 3, 6)];
 
 function golden() {
+  let out = "";
+  function print(s) {
+    out += s + "\n";
+  }
   const gildedRose = new GildedRose(items);
   let days: number = 31;
 
   for (let i = 0; i < days; i++) {
-    console.log("-------- day " + i + " --------");
-    console.log("name, sellIn, quality");
+    print("-------- day " + i + " --------");
+    print("name, sellIn, quality");
     items.forEach(element => {
-      console.log(element.name + ', ' + element.sellIn + ', ' + element.quality);
+      print(element.name + ', ' + element.sellIn + ', ' + element.quality);
 
     });
-    console.log();
+    print("");
     gildedRose.updateQuality();
   }
+  process.stdout.write(out);
 }
 
 golden();
