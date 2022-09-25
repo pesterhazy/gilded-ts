@@ -62,10 +62,10 @@ function updateOne(item: Item) {
     if (item.name == "Aged Brie") {
       updateQuality(item, 1);
     } else {
-      if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-        updateQuality(item, -1);
-      } else {
+      if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
         item.quality = 0;
+      } else {
+        updateQuality(item, -1);
       }
     }
   }
