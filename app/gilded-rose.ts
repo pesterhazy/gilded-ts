@@ -24,18 +24,6 @@ export class GildedRose {
   }
 }
 
-function updateQuality(item: Item, delta: number) {
-  if (!isLegendary(item)) {
-    item.quality = Math.max(Math.min(item.quality + delta, 50), 0);
-  }
-}
-
-function updateSellIn(item: Item, delta: number) {
-  if (!isLegendary(item)) {
-    item.sellIn = item.sellIn + delta;
-  }
-}
-
 function isLegendary(item: Item) {
   return item.name == "Sulfuras, Hand of Ragnaros";
 }
@@ -48,7 +36,11 @@ function isCheese(item: Item) {
   return item.name == "Aged Brie";
 }
 
-function calcDelta(item: Item) {
+function isPastDue(item: Item) {
+  return item.sellIn < 0;
+}
+
+function qualityDelta(item: Item) {
   if (isConcert(item)) {
     if (item.sellIn <= 5) {
       return 3;
@@ -62,21 +54,29 @@ function calcDelta(item: Item) {
   }
 }
 
-function isPastDue(item: Item) {
-  return item.sellIn < 0;
-}
-
-function calcPastDueDelta(item: Item) {
+function pastDueQualityDelta(item: Item) {
   if (isConcert(item)) {
     return -item.quality;
   } else if (isCheese(item)) return 1;
   else return -1;
 }
 
+function updateQuality(item: Item, delta: number) {
+  if (!isLegendary(item)) {
+    item.quality = Math.max(Math.min(item.quality + delta, 50), 0);
+  }
+}
+
+function updateSellIn(item: Item, delta: number) {
+  if (!isLegendary(item)) {
+    item.sellIn = item.sellIn + delta;
+  }
+}
+
 function updateOne(item: Item) {
-  updateQuality(item, calcDelta(item));
+  updateQuality(item, qualityDelta(item));
   updateSellIn(item, -1);
   if (isPastDue(item)) {
-    updateQuality(item, calcPastDueDelta(item));
+    updateQuality(item, pastDueQualityDelta(item));
   }
 }
