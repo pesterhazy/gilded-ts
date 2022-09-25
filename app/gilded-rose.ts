@@ -34,24 +34,24 @@ function isLegendary(item: Item) {
   return item.name == "Sulfuras, Hand of Ragnaros";
 }
 
+function calcDelta(item: Item) {
+  if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+    if (item.sellIn <= 5) {
+      return 3;
+    } else if (item.sellIn <= 10) {
+      return 2;
+    }
+  }
+  return 1;
+}
+
 function updateOne(item: Item) {
   const specialQuality =
     item.name == "Aged Brie" ||
     item.name == "Backstage passes to a TAFKAL80ETC concert";
 
   if (specialQuality) {
-    let delta;
-    // extra handling for backstage passes
-    if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-      if (item.sellIn <= 5) {
-        delta = 3;
-      } else if (item.sellIn <= 10) {
-        delta = 2;
-      } else delta = 1;
-    } else {
-      delta = 1;
-    }
-    updateQuality(item, delta);
+    updateQuality(item, calcDelta(item));
   } else {
     updateQuality(item, -1);
   }
