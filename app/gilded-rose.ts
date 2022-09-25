@@ -40,15 +40,17 @@ function updateOne(item: Item) {
     item.name == "Backstage passes to a TAFKAL80ETC concert";
 
   if (specialQuality) {
-    updateQuality(item, 1);
+    let delta = 1;
+    // extra handling for backstage passes
     if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-      if (item.sellIn < 11) {
-        updateQuality(item, 1);
+      if (item.sellIn <= 10) {
+        delta += 1;
       }
-      if (item.sellIn < 6) {
-        updateQuality(item, 1);
+      if (item.sellIn <= 5) {
+        delta += 1;
       }
     }
+    updateQuality(item, delta);
   } else {
     updateQuality(item, -1);
   }
