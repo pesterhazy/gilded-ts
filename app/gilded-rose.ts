@@ -36,6 +36,10 @@ function isCheese(item: Item) {
   return item.name == "Aged Brie";
 }
 
+function isConjured(item: Item) {
+  return item.name == "Conjured Mana Cake";
+}
+
 function isPastDue(item: Item) {
   return item.sellIn < 0;
 }
@@ -50,7 +54,7 @@ function qualityDelta(item: Item) {
   } else if (isCheese(item)) {
     return 1;
   } else {
-    return -1;
+    return isConjured(item) ? -2 : -1;
   }
 }
 
