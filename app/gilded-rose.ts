@@ -66,16 +66,17 @@ function isPastDue(item: Item) {
   return item.sellIn < 0;
 }
 
+function calcPastDueDelta(item: Item) {
+  if (isConcert(item)) {
+    return -item.quality;
+  } else if (isCheese(item)) return 1;
+  else return -1;
+}
+
 function updateOne(item: Item) {
   updateQuality(item, calcDelta(item));
   updateSellIn(item, -1);
   if (isPastDue(item)) {
-    if (isConcert(item)) {
-      item.quality = 0;
-    } else if (isCheese(item)) {
-      updateQuality(item, 1);
-    } else {
-      updateQuality(item, -1);
-    }
+    updateQuality(item, calcPastDueDelta(item));
   }
 }
