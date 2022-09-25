@@ -1,9 +1,17 @@
-import { Item, GildedRose } from '@/gilded-rose';
+import { golden } from '../golden';
+import {readFileSync} from 'fs';
 
-describe('Gilded Rose', () => {
-  it('should foo', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
-    const items = gildedRose.updateQuality();
-    expect(items[0].name).toBe('fixme');
-  });
+function capture(f) {
+  let out = "";
+  function print(s) {
+    out += s + "\n";
+  }
+  f(print);
+  return out;
+}
+
+it('Should match expected text', () => {
+  const actual = capture(golden);
+  const expected = readFileSync("test/expected.txt", "utf-8");
+  expect(actual).toBe(expected);
 });
