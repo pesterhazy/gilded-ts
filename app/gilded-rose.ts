@@ -65,13 +65,11 @@ function updateOne(item: Item) {
       inc(item);
     } else {
       if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
-        if (item.quality > 0) {
-          if (item.name != "Sulfuras, Hand of Ragnaros") {
-            item.quality = item.quality - 1;
-          }
+        if (item.name != "Sulfuras, Hand of Ragnaros") {
+          dec(item);
         }
       } else {
-        item.quality = item.quality - item.quality;
+        item.quality = 0;
       }
     }
   }
