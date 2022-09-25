@@ -29,14 +29,10 @@ function updateQuality(item: Item, delta: number) {
 }
 
 function updateOne(item: Item) {
-  if (
-    item.name != "Aged Brie" &&
-    item.name != "Backstage passes to a TAFKAL80ETC concert"
-  ) {
-    if (item.name != "Sulfuras, Hand of Ragnaros") {
-      updateQuality(item, -1);
-    }
-  } else {
+  const newLocal =
+    item.name == "Aged Brie" ||
+    item.name == "Backstage passes to a TAFKAL80ETC concert";
+  if (newLocal) {
     updateQuality(item, 1);
     if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
       if (item.sellIn < 11) {
@@ -45,6 +41,10 @@ function updateOne(item: Item) {
       if (item.sellIn < 6) {
         updateQuality(item, 1);
       }
+    }
+  } else {
+    if (item.name != "Sulfuras, Hand of Ragnaros") {
+      updateQuality(item, -1);
     }
   }
   if (item.name != "Sulfuras, Hand of Ragnaros") {
