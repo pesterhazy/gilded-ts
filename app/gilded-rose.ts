@@ -57,8 +57,7 @@ function qualityDelta(item: Item) {
 function pastDueQualityDelta(item: Item) {
   if (isConcert(item)) {
     return -item.quality;
-  } else if (isCheese(item)) return 1;
-  else return -1;
+  } else return qualityDelta(item);
 }
 
 function updateQuality(item: Item, delta: number) {
