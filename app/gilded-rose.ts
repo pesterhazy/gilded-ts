@@ -62,14 +62,14 @@ function calcDelta(item: Item) {
   }
 }
 
-function pastDue(item: Item) {
+function isPastDue(item: Item) {
   return item.sellIn < 0;
 }
 
 function updateOne(item: Item) {
   updateQuality(item, calcDelta(item));
   updateSellIn(item, -1);
-  if (pastDue(item)) {
+  if (isPastDue(item)) {
     if (isConcert(item)) {
       item.quality = 0;
     } else if (isCheese(item)) {
