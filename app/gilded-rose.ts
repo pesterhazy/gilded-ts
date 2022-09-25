@@ -40,21 +40,16 @@ function calcDelta(item: Item) {
       return 3;
     } else if (item.sellIn <= 10) {
       return 2;
-    }
+    } else return 1;
+  } else if (item.name == "Aged Brie") {
+    return 1;
+  } else {
+    return -1;
   }
-  return 1;
 }
 
 function updateOne(item: Item) {
-  const specialQuality =
-    item.name == "Aged Brie" ||
-    item.name == "Backstage passes to a TAFKAL80ETC concert";
-
-  if (specialQuality) {
-    updateQuality(item, calcDelta(item));
-  } else {
-    updateQuality(item, -1);
-  }
+  updateQuality(item, calcDelta(item));
   if (!isLegendary(item)) {
     item.sellIn = item.sellIn - 1;
   }
