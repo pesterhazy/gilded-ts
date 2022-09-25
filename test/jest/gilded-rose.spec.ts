@@ -16,7 +16,14 @@ it("Should match expected text", () => {
   writeFileSync("test/actual.txt", actual);
 
   const expected = readFileSync("test/expected.txt", "utf-8");
-  expect(actual).toBe(expected);
+  try {
+    expect(actual).toBe(expected);
+  } catch (e) {
+    console.log(
+      "*** Golden master test failed ***\nTo update golden master, run: cp tests/actual.txt tests/expected.txt\n**********************************"
+    );
+    throw e;
+  }
 });
 
 it("Should update regular item -1", () => {
