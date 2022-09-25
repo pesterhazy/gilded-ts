@@ -48,12 +48,16 @@ function calcDelta(item: Item) {
   }
 }
 
+function pastDue(item: Item) {
+  return item.sellIn < 0;
+}
+
 function updateOne(item: Item) {
   updateQuality(item, calcDelta(item));
   if (!isLegendary(item)) {
     item.sellIn = item.sellIn - 1;
   }
-  if (item.sellIn < 0) {
+  if (pastDue(item)) {
     if (item.name == "Aged Brie") {
       updateQuality(item, 1);
     } else {
