@@ -30,6 +30,12 @@ function updateQuality(item: Item, delta: number) {
   }
 }
 
+function updateSellIn(item: Item, delta: number) {
+  if (!isLegendary(item)) {
+    item.sellIn = item.sellIn + delta;
+  }
+}
+
 function isLegendary(item: Item) {
   return item.name == "Sulfuras, Hand of Ragnaros";
 }
@@ -62,9 +68,7 @@ function pastDue(item: Item) {
 
 function updateOne(item: Item) {
   updateQuality(item, calcDelta(item));
-  if (!isLegendary(item)) {
-    item.sellIn = item.sellIn - 1;
-  }
+  updateSellIn(item, -1);
   if (pastDue(item)) {
     if (isConcert(item)) {
       item.quality = 0;
