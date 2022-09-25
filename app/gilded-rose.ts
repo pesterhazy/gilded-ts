@@ -25,15 +25,15 @@ export class GildedRose {
 }
 
 function inc(item: Item) {
-  if (item.quality < 50) {
-    item.quality = item.quality + 1;
-  }
+  updateQuality(item, 1);
 }
 
 function dec(item: Item) {
-  if (item.quality > 0) {
-    item.quality = item.quality - 1;
-  }
+  updateQuality(item, -1);
+}
+
+function updateQuality(item: Item, delta: number) {
+  item.quality = Math.max(Math.min(item.quality + delta, 50), 0);
 }
 
 function updateOne(item: Item) {
